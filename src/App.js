@@ -1,12 +1,14 @@
-import React from "react";
-import "./App.css";
+import React from 'react'
+import HomePage from './pages/Home'
+import Sidebar from './component/Sidebar'
 
 function App() {
   return (
-    <div className="App">
-      <h1>Servicario</h1>
+    <div>
+      <HomePage />
+      <Sidebar />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
