@@ -1,4 +1,6 @@
 import React from 'react'
+import { Provider } from 'react-redux'
+import initStore from './store'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import HomePage from './pages/Home'
 import FaqPage from './pages/Faq'
@@ -9,9 +11,11 @@ import RegisterPage from './pages/Register'
 import Sidebar from './component/Sidebar'
 import Navbar from './component/Navbar'
 
+const store = initStore()
+
 function App() {
   return (
-    <div>
+    <Provider store={store}>
       <Router>
         <Navbar />
         <Navbar id='navbar-clone' />
@@ -37,7 +41,7 @@ function App() {
           </Route>
         </Switch>
       </Router>
-    </div>
+    </Provider>
   )
 }
 
