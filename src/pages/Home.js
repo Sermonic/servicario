@@ -1,7 +1,5 @@
 /* eslint jsx-a11y/anchor-is-valid: 0 */
 import React from 'react'
-import Navbar from '../component/Navbar'
-import NavbarClone from '../component/NavbarClone'
 import Hero from '../component/Hero'
 import ServiceItem from '../component/service/ServiceItem'
 
@@ -28,8 +26,6 @@ class Home extends React.Component {
 
     return (
       <div>
-        <Navbar />
-        <NavbarClone />
         <Hero />
         <section className='section section-feature-grey is-medium'>
           <div className='container'>
