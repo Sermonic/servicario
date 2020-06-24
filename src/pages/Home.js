@@ -1,5 +1,6 @@
 /* eslint jsx-a11y/anchor-is-valid: 0 */
 import React from 'react'
+import { connect } from 'react-redux'
 import Hero from '../component/Hero'
 import ServiceItem from '../component/service/ServiceItem'
 
@@ -23,7 +24,8 @@ class Home extends React.Component {
 
   render() {
     const { services } = this.state
-
+    const { testingData, testingNumber } = this.props.test
+    debugger
     return (
       <div>
         <Hero />
@@ -47,4 +49,6 @@ class Home extends React.Component {
   }
 }
 
-export default Home
+const mapStateToProps = (state) => ({ test: state.service })
+
+export default connect(mapStateToProps)(Home)
