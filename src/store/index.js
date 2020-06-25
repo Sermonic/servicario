@@ -1,14 +1,9 @@
 import { createStore, combineReducers } from 'redux'
+import servicesReducer from '../reducers'
 
 const initStore = () => {
   const serviceApp = combineReducers({
-    service: (state = { items: [] }, action) => {
-      if (action.type === 'FETCH_SERVICES') {
-        return { ...state, items: action.services }
-      }
-
-      return state
-    },
+    service: servicesReducer,
   })
 
   const browserSupport =
