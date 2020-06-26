@@ -1,5 +1,7 @@
 import { FETCH_SERVICES } from '../types'
 
+import db from '../db'
+
 const services = [
   {
     id: 'ad0bcf4c',
@@ -25,6 +27,16 @@ const services = [
 ]
 
 export const fetchServices = () => {
+  db.collection('services')
+    .get()
+    .then((snapshot) => {
+      snapshot.docs.forEach((doc) => {
+        debugger
+        const services = doc.data()
+        console.log(services)
+      })
+    })
+
   return {
     type: FETCH_SERVICES,
     services,
