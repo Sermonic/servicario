@@ -15,6 +15,18 @@ const addLoggerToDispatch = (store) => {
   }
 }
 
+const addPromiseToDispatch = (store) => {
+  const dispatch = store.dispatch
+
+  return (action) => {
+    if (typeof action.then === 'function') {
+      return action.then(dispatch)
+    }
+
+    return dispatch(action)
+  }
+}
+
 const initStore = () => {
   const serviceApp = combineReducers({
     service: servicesReducer,
@@ -25,7 +37,11 @@ const initStore = () => {
 
   const store = createStore(serviceApp, browserSupport)
 
-  store.dispatch = addLoggerToDispatch(store)
+  if (process.env.NODE_ENV !== 'production') {
+    store.dispatch = addLoggerToDispatch(store)
+  }
+
+  store.dispatch = addPromiseToDispatch(store)
 
   return store
 }
