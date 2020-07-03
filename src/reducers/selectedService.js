@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { FETCH_SERVICE_SUCCESS } from '../types'
+import { FETCH_SERVICE_SUCCESS, REQUEST_SERVICE } from '../types'
 
 const initSelectedService = () => {
   const item = (state = {}, action) => {
@@ -11,7 +11,21 @@ const initSelectedService = () => {
     }
   }
 
-  return combineReducers({ item })
+  const isFetching = (state = false, action) => {
+    switch (action.type) {
+      case REQUEST_SERVICE:
+        return true
+      case FETCH_SERVICE_SUCCESS:
+        return false
+      default:
+        return state
+    }
+  }
+
+  return combineReducers({
+    item,
+    isFetching,
+  })
 }
 
 const selectedService = initSelectedService()
