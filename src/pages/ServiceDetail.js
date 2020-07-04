@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { connect } from 'react-redux'
-import Spinner from '../component/Spinner'
 import { fetchServiceById } from '../actions'
+import Spinner from '../component/Spinner'
 
 const ServiceDetail = (props) => {
   const { serviceId } = useParams()
@@ -12,8 +12,7 @@ const ServiceDetail = (props) => {
     dispatch(fetchServiceById(serviceId))
   }, [serviceId, dispatch])
 
-  if (serviceId !== service.id) return <Spinner />
-  if (isFetching && !service.id) return <Spinner />
+  if (isFetching || serviceId !== service.id) return <Spinner />
 
   return (
     <section className='hero is-fullheight is-default is-bold'>
