@@ -6,29 +6,23 @@ import {
 
 import * as api from '../api'
 
-export const requestService = () => {
-  return {
-    type: REQUEST_SERVICE,
-  }
+export const fetchServices = () => (dispatch) => {
+  return api.fetchServices().then((services) =>
+    dispatch({
+      type: FETCH_SERVICES_SUCCESS,
+      services,
+    })
+  )
 }
 
-export const resetPreviousService = () => {
-  return {
-    type: FETCH_SERVICE_SUCCESS,
-    service: {},
-  }
-}
+export const fetchServiceById = (serviceId) => (dispatch) => {
+  dispatch({ type: FETCH_SERVICE_SUCCESS, service: {} })
+  dispatch({ type: REQUEST_SERVICE })
 
-export const fetchServices = () => {
-  return api.fetchServices().then((services) => ({
-    type: FETCH_SERVICES_SUCCESS,
-    services,
-  }))
-}
-
-export const fetchServiceById = (serviceId) => {
-  return api.fetchServiceById(serviceId).then((service) => ({
-    type: FETCH_SERVICE_SUCCESS,
-    service,
-  }))
+  return api.fetchServiceById(serviceId).then((service) =>
+    dispatch({
+      type: FETCH_SERVICE_SUCCESS,
+      service,
+    })
+  )
 }
