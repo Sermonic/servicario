@@ -1,5 +1,8 @@
+import firebase from 'firebase/app'
+import 'firebase/auth'
 import db from '../db'
 
+// ---------- SERVICES ----------
 export const fetchServiceById = (serviceId) => {
   return db
     .collection('services')
@@ -19,4 +22,19 @@ export const fetchServices = () => {
       }))
       return services
     })
+}
+// ---------- SERVICES END ----------
+
+// ---------- AUTH ----------
+export const register = async ({ email, password, fullName, avatar }) => {
+  try {
+    const response = await firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+    const { user } = response
+
+    return true
+  } catch (error) {
+    return Promise.reject(error.message)
+  }
 }
