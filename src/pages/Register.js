@@ -1,14 +1,28 @@
 /* eslint jsx-a11y/anchor-is-valid: 0 */
-import React from 'react'
+import React, { useState } from 'react'
+import { Redirect } from 'react-router-dom'
+import { useToasts } from 'react-toast-notifications'
 import RegisterForm from '../component/auth/RegisterForm'
 import { register } from '../actions'
 
 const Register = (props) => {
+  const [redirect, setRedirect] = useState(false)
+
+  const { addToast } = useToasts()
+
   const registerUser = (userData) => {
     register(userData).then(
-      (_) => {},
-      (errorMessage) => {}
+      (_) => setRedirect(true),
+      (errorMessage) =>
+        addToast(errorMessage, {
+          appearance: 'error',
+          autoDismiss: true,
+        })
     )
+  }
+
+  if (redirect) {
+    return <Redirect to='/' />
   }
 
   return (
