@@ -1,12 +1,11 @@
 /* eslint jsx-a11y/anchor-is-valid: 0 */
 import React from 'react'
-import { connect } from 'react-redux'
 import RegisterForm from '../component/auth/RegisterForm'
 import { register } from '../actions'
 
 const Register = (props) => {
   const registerUser = (userData) => {
-    props.dispatch(register(userData)).then(
+    register(userData).then(
       (_) => {},
       (errorMessage) => {}
     )
@@ -35,4 +34,4 @@ const Register = (props) => {
   )
 }
 
-export default connect()(Register)
+export default Register

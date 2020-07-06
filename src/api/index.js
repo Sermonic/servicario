@@ -26,14 +26,30 @@ export const fetchServices = () => {
 // ---------- SERVICES END ----------
 
 // ---------- AUTH ----------
+const createUserProfile = (userProfile) => {
+  return db.collection('profile').doc(userProfile.uid).set(userProfile)
+}
+
 export const register = async ({ email, password, fullName, avatar }) => {
   try {
     const response = await firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
+
     const { user } = response
 
-    return true
+    const userProfile = {
+      uid: user.uid,
+      fullName,
+      email,
+      avatar,
+      services: [],
+      description: '',
+    }
+
+    await createUserProfile(userProfile)
+
+    return userProfile
   } catch (error) {
     return Promise.reject(error.message)
   }
