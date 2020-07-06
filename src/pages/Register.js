@@ -7,7 +7,6 @@ import { register } from '../actions'
 
 const Register = (props) => {
   const [redirect, setRedirect] = useState(false)
-
   const { addToast } = useToasts()
 
   const registerUser = (userData) => {
@@ -21,9 +20,7 @@ const Register = (props) => {
     )
   }
 
-  if (redirect) {
-    return <Redirect to='/' />
-  }
+  if (redirect) return <Redirect to='/' />
 
   return (
     <div className='auth-page'>

@@ -32,3 +32,5 @@ export const fetchServiceById = (serviceId) => (dispatch, getState) => {
 
 export const register = (registerFormData) =>
   api.register({ ...registerFormData })
+
+export const login = (loginData) => api.login({ ...loginData })
