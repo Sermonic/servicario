@@ -1,21 +1,27 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import Sidebar from './component/Sidebar'
 import Navbar from './component/Navbar'
+import Spinner from './component/Spinner'
 import Routes from './Routes'
 
 class ServiceApp extends React.Component {
-  renderApplication = () => (
+  renderApplication = (auth) => (
     <React.Fragment>
-      <Navbar />
-      <Navbar id='navbar-clone' />
+      <Navbar auth={auth} />
+      <Navbar auth={auth} id='navbar-clone' />
       <Sidebar />
       <Routes />
     </React.Fragment>
   )
 
   render() {
-    return this.renderApplication()
+    const { auth } = this.props
+
+    return auth.isAuthResolved ? this.renderApplication(auth) : <Spinner />
   }
 }
 
-export default ServiceApp
+const mapStateToProps = (state) => ({ auth: state.auth })
+
+export default connect(mapStateToProps)(ServiceApp)
