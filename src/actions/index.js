@@ -34,3 +34,18 @@ export const register = (registerFormData) =>
   api.register({ ...registerFormData })
 
 export const login = (loginData) => api.login({ ...loginData })
+
+export const onAuthStateChanged = (onAuthCallback) =>
+  api.onAuthStateChanged(onAuthCallback)
+
+export const storeAuthUser = (authUser) => (dispatch) => {
+  if (authUser) {
+    return api.getUserProfile(authUser.uid).then((userWithProfile) => {
+      // Dispatch action to change auth state
+      return userWithProfile
+    })
+  } else {
+    // Dispatch action
+    return
+  }
+}
