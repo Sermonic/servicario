@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 
 const Navbar = (props) => {
   const { isAuth, user } = props.auth
+  const { logout } = props
 
   return (
     <nav
@@ -123,11 +124,11 @@ const Navbar = (props) => {
               </>
             )}
             {isAuth && (
-              <Link to='/' className='navbar-item'>
+              <div onClick={logout} to='/' className='navbar-item'>
                 <span className='button signup-button is-danger rounded raised'>
                   Logout
                 </span>
-              </Link>
+              </div>
             )}
           </div>
         </div>
