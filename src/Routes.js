@@ -5,6 +5,7 @@ import FaqPage from './pages/Faq'
 import ProfilePage from './pages/Profile'
 import ServicesPage from './pages/Services'
 import ServiceDetailPage from './pages/ServiceDetail'
+import ServiceCreatePage from './pages/services/ServiceCreate'
 import LoginPage from './pages/Login'
 import RegisterPage from './pages/Register'
 import Secret from './pages/Secret'
@@ -20,6 +21,9 @@ const Routes = () => {
       </Route>
       <Route path='/login'>
         <LoginPage />
+      </Route>
+      <Route path='/services/new'>
+        <ServiceCreatePage />
       </Route>
       <Route path='/services/:serviceId'>
         <ServiceDetailPage />
