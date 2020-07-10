@@ -1,5 +1,8 @@
 import React from 'react'
+import withAuthorization from '../component/hoc/withAuthorization'
 
-const Faq = () => <h1>Faq Page</h1>
+const Faq = () => {
+  return <h1>Faq Page</h1>
+}
 
-export default Faq
+export default withAuthorization(Faq)

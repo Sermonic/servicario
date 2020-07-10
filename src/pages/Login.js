@@ -6,6 +6,7 @@ import { Redirect } from 'react-router-dom'
 import { useToasts } from 'react-toast-notifications'
 import { useForm } from 'react-hook-form'
 import { login } from '../actions'
+import onlyGuest from '../component/hoc/onlyGuest'
 
 const Login = () => {
   const [redirect, setRedirect] = useState(false)
@@ -110,4 +111,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default onlyGuest(Login)

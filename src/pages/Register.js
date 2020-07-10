@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom'
 import { useToasts } from 'react-toast-notifications'
 import RegisterForm from '../component/auth/RegisterForm'
 import { register } from '../actions'
+import onlyGuest from '../component/hoc/onlyGuest'
 
 const Register = (props) => {
   const [redirect, setRedirect] = useState(false)
@@ -45,4 +46,4 @@ const Register = (props) => {
   )
 }
 
-export default Register
+export default onlyGuest(Register)
