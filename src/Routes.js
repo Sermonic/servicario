@@ -7,10 +7,14 @@ import ServicesPage from './pages/Services'
 import ServiceDetailPage from './pages/ServiceDetail'
 import LoginPage from './pages/Login'
 import RegisterPage from './pages/Register'
+import Secret from './pages/Secret'
 
 const Routes = () => {
   return (
     <Switch>
+      <Route path='/secret'>
+        <Secret />
+      </Route>
       <Route path='/register'>
         <RegisterPage />
       </Route>
