@@ -7,7 +7,7 @@ import Routes from './Routes'
 import { logout } from './actions'
 
 class ServiceApp extends React.Component {
-  handleLogout = () => this.props.dispatch(logout())
+  handleLogout = () => this.props.logout()
 
   renderApplication = (auth) => (
     <React.Fragment>
@@ -32,4 +32,4 @@ class ServiceApp extends React.Component {
 
 const mapStateToProps = (state) => ({ auth: state.auth })
 
-export default connect(mapStateToProps)(ServiceApp)
+export default connect(mapStateToProps, { logout })(ServiceApp)
