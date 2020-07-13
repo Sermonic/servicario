@@ -6,6 +6,7 @@ import ProfilePage from './pages/Profile'
 import ServicesPage from './pages/Services'
 import ServiceDetailPage from './pages/ServiceDetail'
 import ServiceCreatePage from './pages/services/ServiceCreate'
+import UserServicesPage from './pages/services/UserServices'
 import LoginPage from './pages/Login'
 import RegisterPage from './pages/Register'
 import Secret from './pages/Secret'
@@ -21,6 +22,9 @@ const Routes = () => {
       </Route>
       <Route path='/login'>
         <LoginPage />
+      </Route>
+      <Route path='/services/me'>
+        <UserServicesPage />
       </Route>
       <Route path='/services/new'>
         <ServiceCreatePage />

@@ -2,7 +2,7 @@ import firebase from 'firebase/app'
 import 'firebase/auth'
 import db from '../db'
 
-// ---------- SERVICES ----------
+// ---------- SERVICES START ----------
 export const fetchServiceById = (serviceId) => {
   return db
     .collection('services')
@@ -24,16 +24,29 @@ export const fetchServices = () => {
     })
 }
 
+export const fetchUserServices = (userId) => {
+  return db
+    .collection('services')
+    .where('user', '==', userId)
+    .get()
+    .then((snapshot) => {
+      const services = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }))
+      return services
+    })
+}
+
 export const createService = (newService) => {
   return db
     .collection('services')
     .add(newService)
     .then((docRef) => docRef.id)
 }
-
 // ---------- SERVICES END ----------
 
-// ---------- AUTH ----------
+// ---------- AUTH START ----------
 const createUserProfile = (userProfile) => {
   return db.collection('profiles').doc(userProfile.uid).set(userProfile)
 }
@@ -80,3 +93,4 @@ export const getUserProfile = (uid) =>
     .doc(uid)
     .get()
     .then((snapshot) => ({ uid, ...snapshot.data() }))
+// ---------- AUTH END ----------
