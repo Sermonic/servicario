@@ -4,6 +4,7 @@ import {
   REQUEST_SERVICE,
   SET_AUTH_USER,
   RESET_AUTH_STATE,
+  FETCH_USER_SERVICES_SUCCESS,
 } from '../types'
 
 import * as api from '../api'
@@ -18,8 +19,12 @@ export const fetchServices = () => (dispatch) => {
   )
 }
 
-export const fetchUserServices = (userId) => {
-  return api.fetchUserServices(userId)
+export const fetchUserServices = (userId) => (dispatch) => {
+  return api
+    .fetchUserServices(userId)
+    .then((services) =>
+      dispatch({ type: FETCH_USER_SERVICES_SUCCESS, services })
+    )
 }
 
 export const fetchServiceById = (serviceId) => (dispatch, getState) => {
