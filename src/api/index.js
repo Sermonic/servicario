@@ -86,6 +86,7 @@ export const logout = () => firebase.auth().signOut()
 
 export const onAuthStateChanged = (onAuthCallback) =>
   firebase.auth().onAuthStateChanged(onAuthCallback)
+// ---------- AUTH END ----------
 
 export const getUserProfile = (uid) =>
   db
@@ -93,4 +94,5 @@ export const getUserProfile = (uid) =>
     .doc(uid)
     .get()
     .then((snapshot) => ({ uid, ...snapshot.data() }))
-// ---------- AUTH END ----------
+
+export const createRef = (collection, docId) => db.doc(`${collection}/` + docId)
