@@ -5,7 +5,7 @@ const Modal = (props) => {
 
   const changeModalState = () => setIsActive(!isActive)
 
-  const { openButtonText } = props
+  const { openButtonText, children, onModalSubmit } = props
 
   return (
     <div>
@@ -29,11 +29,11 @@ const Modal = (props) => {
               aria-label='close'
             ></button>
           </header>
-          <section className='modal-card-body'>
-            <h1>Hello I am Modal! (:</h1>
-          </section>
+          <section className='modal-card-body'>{children}</section>
           <footer className='modal-card-foot'>
-            <button className='button is-success'>Save changes</button>
+            <button onClick={onModalSubmit} className='button is-success'>
+              Save changes
+            </button>
             <button onClick={changeModalState} className='button'>
               Cancel
             </button>

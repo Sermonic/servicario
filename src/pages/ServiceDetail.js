@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { fetchServiceById } from '../actions'
 import Spinner from '../component/Spinner'
-import Modal from '../component/Modal'
+import OfferModal from '../component/service/OfferModal'
 
 const ServiceDetail = (props) => {
   const { serviceId } = useParams()
@@ -29,9 +29,9 @@ const ServiceDetail = (props) => {
               <h1 className='title is-2'>{service.title}</h1>
               <h2 className='subtitle is-4'>{service.description}</h2>
               <br />
-              <p className='has-text-centered'>
-                <Modal openButtonText='Make an offer' />
-              </p>
+              <div className='has-text-centered'>
+                <OfferModal service={service} />
+              </div>
             </div>
           </div>
         </div>

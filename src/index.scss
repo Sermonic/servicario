@@ -29,7 +29,13 @@ $border-grey: #ccc;
 $muted-grey: #999;
 $section-grey: #fbfbfb;
 
-// AUTH STARTS
+// MODAL START
+.modal {
+  text-align: left !important;
+}
+// MODAL END
+
+// AUTH START
 .auth-page {
   .hero.is-success {
     background: #f2f6fa;
@@ -64,9 +70,9 @@ $section-grey: #fbfbfb;
     padding-top: 1rem;
   }
 }
-// AUTH ENDS
+// AUTH END
 
-// SERVICE CREATE
+// SERVICE CREATE START
 .create-page {
   margin-top: 70px;
   margin-bottom: 70px;
@@ -80,7 +86,7 @@ $section-grey: #fbfbfb;
     margin-top: 20px;
   }
 }
-// SERVICE CREATE ENDS
+// SERVICE CREATE END
 
 /* ==========================================================================
 General Keyframes animations
