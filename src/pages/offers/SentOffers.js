@@ -1,8 +1,15 @@
 import React from 'react'
+import { fetchSentOffers } from '../../actions'
 import withAuthorization from '../../component/hoc/withAuthorization'
 import ServiceItem from '../../component/service/ServiceItem'
 
 class SentOffers extends React.Component {
+  componentDidMount() {
+    const { auth } = this.props
+
+    this.props.dispatch(fetchSentOffers(auth.user.uid))
+  }
+
   render() {
     return (
       <div className='container'>

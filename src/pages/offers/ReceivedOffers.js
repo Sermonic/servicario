@@ -1,8 +1,15 @@
 import React from 'react'
+import { fetchReceivedOffers } from '../../actions'
 import withAuthorization from '../../component/hoc/withAuthorization'
 import ServiceItem from '../../component/service/ServiceItem'
 
 class ReceivedOffers extends React.Component {
+  componentDidMount() {
+    const { auth } = this.props
+
+    this.props.dispatch(fetchReceivedOffers(auth.user.uid))
+  }
+
   render() {
     return (
       <div className='container'>

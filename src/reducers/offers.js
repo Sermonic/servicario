@@ -8,10 +8,10 @@ const createOfferList = (offersType) => {
 
     switch (action.type) {
       case 'FETCH_OFFERS_SUCCESS':
+        return action.offers
+      default:
         return state
     }
-
-    return state
   }
 }
 
