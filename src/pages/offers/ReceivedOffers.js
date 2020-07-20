@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { fetchReceivedOffers } from '../../actions'
+import { fetchReceivedOffers, changeOfferStatus } from '../../actions'
 import withAuthorization from '../../component/hoc/withAuthorization'
 import ServiceItem from '../../component/service/ServiceItem'
 
@@ -8,21 +8,21 @@ class ReceivedOffers extends React.Component {
   componentDidMount() {
     const { auth } = this.props
 
-    this.props.dispatch(fetchReceivedOffers(auth.user.uid))
+    this.props.fetchReceivedOffers(auth.user.uid)
   }
 
-  acceptOffer = (offer) => {
-    console.log(`Accepting ${offer}`)
+  acceptOffer = (offerId) => {
+    this.props.changeOfferStatus(offerId, 'accepted')
   }
 
-  declineOffer = (offer) => {
-    console.log(`Declining ${offer}`)
+  declineOffer = (offerId) => {
+    this.props.changeOfferStatus(offerId, 'declined')
   }
 
   statusClass = (status) => {
     if (status === 'pending') return 'is-warning'
     if (status === 'accepted') return 'is-success'
-    if (status === 'decline') return 'is-danger'
+    if (status === 'declined') return 'is-danger'
   }
 
   render() {
@@ -65,13 +65,13 @@ class ReceivedOffers extends React.Component {
                     <div>
                       <hr />
                       <button
-                        onClick={() => this.acceptOffer(offer)}
+                        onClick={() => this.acceptOffer(offer.id)}
                         className='button is-success s-m-r'
                       >
                         Accept
                       </button>
                       <button
-                        onClick={() => this.declineOffer(offer)}
+                        onClick={() => this.declineOffer(offer.id)}
                         className='button is-danger'
                       >
                         Decline
@@ -90,4 +90,11 @@ class ReceivedOffers extends React.Component {
 
 const mapStateToProps = ({ offers }) => ({ offers: offers.received })
 
-export default withAuthorization(connect(mapStateToProps)(ReceivedOffers))
+const mapDispatchToProps = () => ({
+  fetchReceivedOffers,
+  changeOfferStatus,
+})
+
+export default withAuthorization(
+  connect(mapStateToProps, mapDispatchToProps())(ReceivedOffers)
+)

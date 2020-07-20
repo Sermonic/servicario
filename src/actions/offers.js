@@ -1,4 +1,4 @@
-import { FETCH_OFFERS_SUCCESS } from '../types'
+import { FETCH_OFFERS_SUCCESS, CHANGE_OFFER_STATUS } from '../types'
 import * as api from '../api'
 
 export const createOffer = (offer) => api.createOffer(offer)
@@ -43,4 +43,15 @@ export const fetchReceivedOffers = (userId) => (dispatch) => {
 
     return offers
   })
+}
+
+export const changeOfferStatus = (offerId, status) => (dispatch) => {
+  api.changeOfferStatus(offerId, status).then((_) =>
+    dispatch({
+      type: CHANGE_OFFER_STATUS,
+      status,
+      offerId,
+      offersType: 'received',
+    })
+  )
 }
