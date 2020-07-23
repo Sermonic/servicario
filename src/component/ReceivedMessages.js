@@ -5,15 +5,20 @@ import { getMessages } from '../reducers'
 
 const ReceivedMessages = ({ dispatch, messages }) => {
   const renderMessages = (messages) => {
-    return (
-      <div>
+    if (messages.length === 0) {
+      return <div>No Messages :|</div>
+    }
+
+    return messages.map((message) => (
+      <div key={message.id}>
         <div className='from-user'>
-          <span>From: </span>Admin
+          <span>From: </span>
+          {message.fromUser.name}
         </div>
         <hr />
         <div className='navbar-item navbar-item-messages'>
-          <div>Hello Admin, I would like to collaborate with you</div>
-          <Link onClick={() => {}} to='/collaborations/someid213213'>
+          <div>{message.text}</div>
+          <Link onClick={() => {}} to={message.cta}>
             <div className='button is-success'>Join</div>
           </Link>
           <button onClick={() => {}} className='button is-warning'>
@@ -21,7 +26,7 @@ const ReceivedMessages = ({ dispatch, messages }) => {
           </button>
         </div>
       </div>
-    )
+    ))
   }
 
   return renderMessages(messages)
