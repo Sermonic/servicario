@@ -1,6 +1,7 @@
 /* eslint jsx-a11y/anchor-is-valid: 0 */
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import ReceivedMessages from './ReceivedMessages'
 
 const Navbar = (props) => {
   const { isAuth, user } = props.auth
@@ -108,24 +109,32 @@ const Navbar = (props) => {
               Faq
             </Link>
             {isAuth && (
-              <div className='navbar-item has-dropdown is-hoverable'>
-                <div className='navbar-link'>Manage</div>
+              <>
+                <div className='navbar-item has-dropdown is-hoverable'>
+                  <div className='navbar-link'>Manage</div>
 
-                <div className='navbar-dropdown'>
-                  <Link to='/services/new' className='navbar-item'>
-                    Create Service
-                  </Link>
-                  <Link to='/services/me' className='navbar-item'>
-                    Your Services
-                  </Link>
-                  <Link to='/offers/sent' className='navbar-item'>
-                    Sent Offers
-                  </Link>
-                  <Link to='/offers/received' className='navbar-item'>
-                    Received Offers
-                  </Link>
+                  <div className='navbar-dropdown'>
+                    <Link to='/services/new' className='navbar-item'>
+                      Create Service
+                    </Link>
+                    <Link to='/services/me' className='navbar-item'>
+                      Your Services
+                    </Link>
+                    <Link to='/offers/sent' className='navbar-item'>
+                      Sent Offers
+                    </Link>
+                    <Link to='/offers/received' className='navbar-item'>
+                      Received Offers
+                    </Link>
+                  </div>
                 </div>
-              </div>
+                <div className='navbar-item has-dropdown is-hoverable'>
+                  <div className='navbar-link'>Messages</div>
+                  <div className='navbar-dropdown navbar-dropdown-messages'>
+                    {user.messages && <ReceivedMessages />}
+                  </div>
+                </div>
+              </>
             )}
             {!isAuth && (
               <>
