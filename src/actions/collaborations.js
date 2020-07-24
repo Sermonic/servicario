@@ -1,6 +1,7 @@
 import {
   COLLABORATION_CREATED_FROM_OFFER,
   FETCH_USER_MESSAGES_SUCCESS,
+  MARK_MESSAGE_AS_READ,
 } from '../types'
 import * as api from '../api'
 
@@ -22,3 +23,12 @@ export const subscribeToMessages = (userId) => (dispatch) =>
   api.subscribeToMessages(userId, (messages) => {
     dispatch({ type: FETCH_USER_MESSAGES_SUCCESS, messages })
   })
+
+// export const markMessageAsRead = (message) => (dispatch) =>
+//   api
+//     .markMessageAsRead(message)
+//     .then((_) =>
+//       dispatch({ type: MARK_MESSAGE_AS_READ, messageId: message.id })
+//     )
+
+export const markMessageAsRead = (message) => api.markMessageAsRead(message)
