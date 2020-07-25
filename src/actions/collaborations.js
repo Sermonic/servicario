@@ -1,7 +1,6 @@
 import {
   COLLABORATION_CREATED_FROM_OFFER,
   FETCH_USER_MESSAGES_SUCCESS,
-  MARK_MESSAGE_AS_READ,
 } from '../types'
 import * as api from '../api'
 
