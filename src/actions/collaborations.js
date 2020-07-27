@@ -31,3 +31,5 @@ export const subscribeToMessages = (userId) => (dispatch) =>
 //     )
 
 export const markMessageAsRead = (message) => api.markMessageAsRead(message)
+
+export const fetchCollaborations = (userId) => api.fetchCollaborations(userId)

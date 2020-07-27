@@ -1,17 +1,22 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
+
 import HomePage from './pages/Home'
 import FaqPage from './pages/Faq'
 import ProfilePage from './pages/Profile'
+import LoginPage from './pages/Login'
+import RegisterPage from './pages/Register'
+import SecretPage from './pages/Secret'
+
 import ServicesPage from './pages/Services'
 import ServiceDetailPage from './pages/ServiceDetail'
 import ServiceCreatePage from './pages/services/ServiceCreate'
 import UserServicesPage from './pages/services/UserServices'
+
 import SentOffersPage from './pages/offers/SentOffers'
 import ReceivedOffersPage from './pages/offers/ReceivedOffers'
-import LoginPage from './pages/Login'
-import RegisterPage from './pages/Register'
-import SecretPage from './pages/Secret'
+
+import ReceivedCollaborationsPage from './pages/collaborations/ReceivedCollaborations'
 
 const Routes = () => {
   return (
@@ -24,6 +29,9 @@ const Routes = () => {
       </Route>
       <Route path='/login'>
         <LoginPage />
+      </Route>
+      <Route path='/collaborations/me'>
+        <ReceivedCollaborationsPage />
       </Route>
       <Route path='/offers/sent'>
         <SentOffersPage />
