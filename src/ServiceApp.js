@@ -7,17 +7,21 @@ import Routes from './Routes'
 import { logout } from './actions'
 
 class ServiceApp extends React.Component {
-  handleLogout = () => this.props.logout()
+  handleLogout = (uid) => this.props.logout(uid)
 
   renderApplication = (auth) => (
     <React.Fragment>
       <Navbar
         loadFresh
         auth={auth}
-        logout={this.handleLogout}
+        logout={() => this.handleLogout(auth.user.uid)}
         id='navbar-main'
       />
-      <Navbar auth={auth} logout={this.handleLogout} id='navbar-clone' />
+      <Navbar
+        auth={auth}
+        logout={() => this.handleLogout(auth.user.uid)}
+        id='navbar-clone'
+      />
       <Sidebar />
       <Routes />
     </React.Fragment>
