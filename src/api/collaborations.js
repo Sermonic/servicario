@@ -64,3 +64,12 @@ export const joinCollaboration = (collaborationId, uid) => {
     .doc(collaborationId)
     .update({ joinedPeople: firebase.firestore.FieldValue.arrayUnion(userRef) })
 }
+
+export const subToProfile = (uid, done) => {
+  db.collection('profiles')
+    .doc(uid)
+    .onSnapshot((snapshot) => {
+      const user = { id: snapshot.id, ...snapshot.data() }
+      done(user)
+    })
+}

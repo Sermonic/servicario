@@ -36,7 +36,7 @@ export const markMessageAsRead = (message) => api.markMessageAsRead(message)
 
 export const fetchCollaborations = (userId) => api.fetchCollaborations(userId)
 
-export const subToCollaboration = (collaborationId) => (dispatch) =>
+export const subToCollaboration = (collaborationId, done) => (dispatch) =>
   api.subToCollaboration(collaborationId, async (collaboration) => {
     let joinedPeople = []
 
@@ -52,7 +52,13 @@ export const subToCollaboration = (collaborationId) => (dispatch) =>
 
     dispatch({ type: SET_COLLABORATION, collaboration })
     dispatch({ type: SET_COLLABORATION_JOINED_PEOPLE, joinedPeople })
+    done({ joinedPeople })
   })
 
 export const joinCollaboration = (collaborationId, userId) =>
   api.joinCollaboration(collaborationId, userId)
+
+export const subToProfile = (uid) =>
+  api.subToProfile(uid, (user) => {
+    console.log(user)
+  })
