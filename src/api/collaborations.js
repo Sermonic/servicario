@@ -65,6 +65,17 @@ export const joinCollaboration = (collaborationId, uid) => {
     .update({ joinedPeople: firebase.firestore.FieldValue.arrayUnion(userRef) })
 }
 
+export const leaveCollaboration = (collaborationId, uid) => {
+  const userRef = createRef('profiles', uid)
+
+  return db
+    .collection('collaborations')
+    .doc(collaborationId)
+    .update({
+      joinedPeople: firebase.firestore.FieldValue.arrayRemove(userRef),
+    })
+}
+
 export const subToProfile = (uid, done) => {
   db.collection('profiles')
     .doc(uid)

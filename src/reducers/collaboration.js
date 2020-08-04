@@ -30,6 +30,7 @@ const initCollaboration = () => {
         if (newJoinedPeople[index].state === user.state) return state
 
         newJoinedPeople[index].state = user.state
+
         return newJoinedPeople
       default:
         return state

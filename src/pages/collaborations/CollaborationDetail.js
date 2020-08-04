@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import {
   subToCollaboration,
   joinCollaboration,
+  leaveCollaboration,
   subToProfile,
 } from '../../actions'
 import withAuthorization from '../../component/hoc/withAuthorization'
@@ -39,11 +40,16 @@ class CollaborationDetail extends React.Component {
   }
 
   componentWillUnmount() {
+    const { id } = this.props.match.params
+    const { user } = this.props.auth
+
     this.unsubscribeFromCollaboration()
 
     Object.keys(this.peopleWatchers).forEach((uid) =>
       this.peopleWatchers[uid]()
     )
+
+    leaveCollaboration(id, user.uid)
   }
 
   render() {
