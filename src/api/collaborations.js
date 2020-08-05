@@ -84,3 +84,18 @@ export const subToProfile = (uid, done) => {
       done(user)
     })
 }
+
+export const sendChatMessage = ({ message, collaborationId, timestamp }) =>
+  db
+    .collection('collaborations')
+    .doc(collaborationId)
+    .collection('messages')
+    .doc(timestamp)
+    .set(message)
+
+export const subToMessages = (collaborationId, done) =>
+  db
+    .collection('collaborations')
+    .doc(collaborationId)
+    .collection('messages')
+    .onSnapshot((snapshot) => done(snapshot.docChanges()))

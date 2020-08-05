@@ -4,6 +4,7 @@ import {
   SET_COLLABORATION,
   SET_COLLABORATION_JOINED_PEOPLE,
   UPDATE_COLLABORATION_USER,
+  SET_COLLABORATION_MESSAGES,
 } from '../types'
 import * as api from '../api'
 
@@ -66,3 +67,10 @@ export const subToProfile = (uid) => (dispatch) =>
   api.subToProfile(uid, (user) =>
     dispatch({ type: UPDATE_COLLABORATION_USER, user })
   )
+
+export const sendChatMessage = (message) => api.sendChatMessage(message)
+
+export const subToMessages = (collaborationId) => (dispatch) =>
+  api.subToMessages(collaborationId, (messages) => {
+    dispatch({ type: SET_COLLABORATION_MESSAGES, messages })
+  })
