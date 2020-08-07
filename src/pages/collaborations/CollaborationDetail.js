@@ -12,6 +12,7 @@ import {
 } from '../../actions'
 import withAuthorization from '../../component/hoc/withAuthorization'
 import JoinedPeople from '../../component/collaboration/JoinedPeople'
+import ChatMessages from '../../component/collaboration/ChatMessages'
 
 class CollaborationDetail extends React.Component {
   state = {
@@ -96,13 +97,13 @@ class CollaborationDetail extends React.Component {
   }
 
   render() {
-    const { collaboration, joinedPeople } = this.props
+    const { joinedPeople, messages } = this.props
+    const { user } = this.props.auth
     const { inputValue } = this.state
 
     return (
       <div className='content-wrapper'>
         <div className='root'>
-          <h1 className='title'>{collaboration.title}</h1>
           <div className='body'>
             <div className='viewListUser'>
               <JoinedPeople users={joinedPeople} />
@@ -115,27 +116,10 @@ class CollaborationDetail extends React.Component {
                     src='https://i.imgur.com/cVDadwb.png'
                     alt='icon avatar'
                   />
-                  <span className='textHeaderChatBoard'>
-                    Vitaliy Shcherbanych
-                  </span>
+                  <span className='textHeaderChatBoard'>{user.fullName}</span>
                 </div>
                 <div className='viewListContentChat'>
-                  <div className='viewWrapItemLeft'>
-                    <div className='viewWrapItemLeft3'>
-                      <img
-                        src='https://i.imgur.com/cVDadwb.png'
-                        alt='avatar'
-                        className='peerAvatarLeft'
-                      />
-                      <div className='viewItemLeft'>
-                        <span className='textContentItem'>hey</span>
-                      </div>
-                    </div>
-                    <span className='textTimeLeft'>Jun 27, 2020</span>
-                  </div>
-                  <div className='viewItemRight'>
-                    <span className='textContentItem'>hey</span>
-                  </div>
+                  <ChatMessages authUser={user} messages={messages} />
                   <div style={{ float: 'left', clear: 'both' }}></div>
                 </div>
                 <div className='viewBottom'>
@@ -171,10 +155,11 @@ const mapDispatchToProps = () => ({
   subToMessages,
 })
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ collaboration }) => {
   return {
-    collaboration: state.collaboration.joined,
-    joinedPeople: state.collaboration.joinedPeople,
+    collaboration: collaboration.joined,
+    joinedPeople: collaboration.joinedPeople,
+    messages: collaboration.messages,
   }
 }
 
