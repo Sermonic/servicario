@@ -4,6 +4,7 @@ import {
   SET_COLLABORATION_JOINED_PEOPLE,
   UPDATE_COLLABORATION_USER,
   SET_COLLABORATION_MESSAGES,
+  RESET_COLLABORATION_MESSAGES,
 } from '../types'
 
 const initCollaboration = () => {
@@ -50,6 +51,8 @@ const initCollaboration = () => {
         })
 
         return newMessages
+      case RESET_COLLABORATION_MESSAGES:
+        return []
       default:
         return state
     }
