@@ -78,3 +78,6 @@ export const subToMessages = (collaborationId) => (dispatch) => {
     dispatch({ type: SET_COLLABORATION_MESSAGES, messages })
   })
 }
+
+export const startCollaboration = (collaborationId, expiresAt) =>
+  api.startCollaboration(collaborationId, expiresAt)
