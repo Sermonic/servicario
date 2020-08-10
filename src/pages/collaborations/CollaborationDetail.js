@@ -141,7 +141,15 @@ class CollaborationDetail extends React.Component {
                       </button>
                     </div>
                   )}
-                  {true && <Timer />}
+                  {collaboration.expiresAt && (
+                    <Timer
+                      seconds={
+                        collaboration.expiresAt.seconds -
+                        Timestamp.now().seconds
+                      }
+                      timeOutCallback={() => alert('Times out!')}
+                    />
+                  )}
                 </div>
                 <div className='viewListContentChat'>
                   <ChatMessages authUser={user} messages={messages} />

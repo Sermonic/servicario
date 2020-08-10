@@ -6,12 +6,6 @@ import {
   FETCH_USER_MESSAGES_SUCCESS,
 } from '../types'
 
-const INITIAL_STATE = {
-  user: null,
-  isAuth: false,
-  isAuthResolved: false,
-}
-
 const initAuth = () => {
   const user = (state = {}, action) => {
     switch (action.type) {
@@ -35,7 +29,7 @@ const initAuth = () => {
     }
   }
 
-  const isAuthResolved = (state = INITIAL_STATE, action) => {
+  const isAuthResolved = (state = false, action) => {
     switch (action.type) {
       case SET_AUTH_USER:
         return true
