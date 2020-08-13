@@ -20,6 +20,7 @@ import Timer from '../../component/collaboration/Timer'
 class CollaborationDetail extends React.Component {
   state = {
     inputValue: '',
+    reload: false,
   }
 
   componentDidMount() {
@@ -78,11 +79,14 @@ class CollaborationDetail extends React.Component {
       content: inputValue.trim(),
     }
 
-    sendChatMessage({
-      message,
-      collaborationId: collaboration.id,
-      timestamp,
-    }).then((_) => this.setState({ inputValue: '' }))
+    this.props
+      .sendChatMessage({
+        message,
+        collaborationId: collaboration.id,
+        timestamp,
+      })
+      .then((_) => this.setState({ inputValue: '' }))
+      .catch((error) => alert(error))
   }
 
   onStartCollaboration = (collaboration) => {
@@ -92,6 +96,21 @@ class CollaborationDetail extends React.Component {
     const expiresAt = new Timestamp(nowSeconds + time, 0)
 
     startCollaboration(id, expiresAt)
+  }
+
+  getCollaborationStatus = (collaboration) => {
+    if (Object.keys(collaboration).length === 0) return 'loading'
+
+    if (!collaboration.expiresAt) return 'notStarted'
+    if (Timestamp.now().seconds < collaboration.expiresAt.seconds) {
+      return 'active'
+    } else {
+      return 'finished'
+    }
+  }
+
+  reloadPage = () => {
+    this.setState({ reload: true })
   }
 
   componentWillUnmount() {
@@ -113,6 +132,8 @@ class CollaborationDetail extends React.Component {
     const { user } = this.props.auth
     const { inputValue } = this.state
 
+    const status = this.getCollaborationStatus(collaboration)
+
     return (
       <div className='content-wrapper'>
         <div className='root'>
@@ -131,7 +152,7 @@ class CollaborationDetail extends React.Component {
                     />
                     <span className='textHeaderChatBoard'>{user.fullName}</span>
                   </div>
-                  {false && (
+                  {status === ' notStarted' && (
                     <div className='headerChatButton'>
                       <button
                         onClick={() => this.onStartCollaboration(collaboration)}
@@ -141,14 +162,19 @@ class CollaborationDetail extends React.Component {
                       </button>
                     </div>
                   )}
-                  {collaboration.expiresAt && (
+                  {status === 'active' && (
                     <Timer
                       seconds={
                         collaboration.expiresAt.seconds -
                         Timestamp.now().seconds
                       }
-                      timeOutCallback={() => alert('Times out!')}
+                      timeOutCallback={() => this.reloadPage}
                     />
+                  )}
+                  {status === 'finished' && (
+                    <span className='tag is-warning is-large'>
+                      Collaboration has been finished
+                    </span>
                   )}
                 </div>
                 <div className='viewListContentChat'>
