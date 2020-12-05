@@ -5,6 +5,7 @@ import { newCollaboration, createMessage } from '../../helpers/offers'
 import { fetchSentOffers, collaborate } from '../../actions'
 import withAuthorization from '../../component/hoc/withAuthorization'
 import ServiceItem from '../../component/service/ServiceItem'
+import Spinner from "../../component/Spinner";
 
 class SentOffers extends React.Component {
   componentDidMount() {
@@ -31,12 +32,20 @@ class SentOffers extends React.Component {
   }
 
   render() {
-    const { offers } = this.props
+    const { offers, isFetching } = this.props
+
+    if (isFetching) return <Spinner />
 
     return (
       <div className='container'>
         <div className='content-wrapper'>
           <h1 className='title'>Sent Offers</h1>
+          {
+            !isFetching && offers.length === 0 &&
+              <span className='tag is-warning is-large'>
+                You don't have any send offers :(
+              </span>
+          }
           <div className='columns'>
             {offers.map((offer) => (
               <div key={offer.id} className='column is-one-third'>
@@ -83,7 +92,7 @@ class SentOffers extends React.Component {
   }
 }
 
-const mapStateToProps = ({ offers }) => ({ offers: offers.sent })
+const mapStateToProps = ({ offers }) => ({ offers: offers.sent, isFetching: offers.isFetching })
 
 const SentOfferWithToast = withToastManager(SentOffers)
 

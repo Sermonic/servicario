@@ -1,5 +1,7 @@
 import db from '../db'
 
+import { createRef } from './index'
+
 export const fetchServiceById = (serviceId) => {
   return db
     .collection('services')
@@ -22,9 +24,11 @@ export const fetchServices = () => {
 }
 
 export const fetchUserServices = (userId) => {
+    const userRef = createRef('profiles', userId)
+
   return db
     .collection('services')
-    .where('user', '==', userId)
+    .where('user', '==', userRef)
     .get()
     .then((snapshot) => {
       const services = snapshot.docs.map((doc) => ({

@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux'
+import { isFetching } from './common'
 import {
   FETCH_OFFERS_SUCCESS,
   CHANGE_OFFER_STATUS,
@@ -37,6 +38,7 @@ const createOfferList = (offersType) => {
 const offers = combineReducers({
   received: createOfferList('received'),
   sent: createOfferList('sent'),
+  isFetching: isFetching('offers')
 })
 
 export default offers

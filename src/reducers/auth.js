@@ -6,11 +6,16 @@ import {
   FETCH_USER_MESSAGES_SUCCESS,
 } from '../types'
 
+const INITIAL_USER_STATE = {
+  messages: [],
+  services: []
+}
+
 const initAuth = () => {
-  const user = (state = {}, action) => {
+  const user = (state = INITIAL_USER_STATE, action) => {
     switch (action.type) {
       case SET_AUTH_USER:
-        return action.user
+        return { ...action.user, services: [], messages: [] }
       case FETCH_USER_SERVICES_SUCCESS:
         return { ...state, services: action.services }
       case FETCH_USER_MESSAGES_SUCCESS:

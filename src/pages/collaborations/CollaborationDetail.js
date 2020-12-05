@@ -80,14 +80,8 @@ class CollaborationDetail extends React.Component {
       content: inputValue.trim(),
     }
 
-    this.props
-      .sendChatMessage({
-        message,
-        collaborationId: collaboration.id,
-        timestamp,
-      })
-      .then((_) => this.setState({ inputValue: '' }))
-      .catch((error) => alert(error))
+    sendChatMessage({message, collaborationId: collaboration.id, timestamp})
+        .then(_ => this.setState({inputValue: ''}))
   }
 
   onStartCollaboration = (collaboration) => {
@@ -121,9 +115,9 @@ class CollaborationDetail extends React.Component {
     this.unsubscribeFromCollaboration()
     this.unsubscribeFromMessages()
 
-    // Object.keys(this.peopleWatchers).forEach((uid) =>
-    //   this.peopleWatchers[uid]()
-    // )
+    Object.keys(this.peopleWatchers).forEach((uid) =>
+      this.peopleWatchers[uid]()
+    )
 
     leaveCollaboration(id, user.uid)
   }
