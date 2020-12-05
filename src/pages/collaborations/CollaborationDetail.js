@@ -127,6 +127,16 @@ class CollaborationDetail extends React.Component {
     leaveCollaboration(id, user.uid)
   }
 
+  getCollaborationStatus = (collaboration) => {
+    if (Object.keys(collaboration).length === 0) return 'loading'
+    if (!collaboration.expiresAt) return 'notStarted'
+    if (Timestamp.now().seconds < collaboration.expiresAt.seconds) {
+      return 'active'
+    } else {
+      return 'isFinished'
+    }
+  }
+
   render() {
     const { collaboration, joinedPeople, messages } = this.props
     const { user } = this.props.auth
