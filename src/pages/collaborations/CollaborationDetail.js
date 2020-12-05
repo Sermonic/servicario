@@ -16,6 +16,7 @@ import withAuthorization from '../../component/hoc/withAuthorization'
 import JoinedPeople from '../../component/collaboration/JoinedPeople'
 import ChatMessages from '../../component/collaboration/ChatMessages'
 import Timer from '../../component/collaboration/Timer'
+import Spinner from "../../component/Spinner";
 
 class CollaborationDetail extends React.Component {
   state = {
@@ -127,22 +128,14 @@ class CollaborationDetail extends React.Component {
     leaveCollaboration(id, user.uid)
   }
 
-  getCollaborationStatus = (collaboration) => {
-    if (Object.keys(collaboration).length === 0) return 'loading'
-    if (!collaboration.expiresAt) return 'notStarted'
-    if (Timestamp.now().seconds < collaboration.expiresAt.seconds) {
-      return 'active'
-    } else {
-      return 'isFinished'
-    }
-  }
-
   render() {
     const { collaboration, joinedPeople, messages } = this.props
     const { user } = this.props.auth
     const { inputValue } = this.state
 
     const status = this.getCollaborationStatus(collaboration)
+
+    if (status === 'loading') return <Spinner />
 
     return (
       <div className='content-wrapper'>
@@ -189,7 +182,7 @@ class CollaborationDetail extends React.Component {
                 </div>
                 <div className='viewListContentChat'>
                   <ChatMessages authUser={user} messages={messages} />
-                  <div style={{ float: 'left', clear: 'both' }}></div>
+                  <div style={{float: 'left', clear: 'both'}}/>
                 </div>
                 <div className='viewBottom'>
                   <input
@@ -197,12 +190,14 @@ class CollaborationDetail extends React.Component {
                       this.setState({ inputValue: e.target.value })
                     }
                     onKeyPress={this.onKeyboardPress}
+                    disabled={status === 'finished' || status === 'notStarted'}
                     value={inputValue}
                     className='viewInput'
                     placeholder='Type your message...'
                   />
                   <button
                     onClick={() => this.onSendMessage(inputValue)}
+                    disabled={status === 'finished' || status === 'notStarted'}
                     className='button is-primary is-large'
                   >
                     Send
